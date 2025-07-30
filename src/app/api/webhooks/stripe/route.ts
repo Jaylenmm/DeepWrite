@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import stripe from '@/lib/stripe';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
 import { headers } from 'next/headers';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
